@@ -1,17 +1,26 @@
-export default class SwapiService {
-   _baseUrl = 'https://swapi.co/api/';
+export default class SwapiServices {
 
-    async _getData(url) {
+    _apiBase = 'https://swapi.co/api';
+
+        async fetchData(url) {
         try {
-            const data = await fetch(`${this._baseUrl}${url}`);
+            const data = await fetch(`${this._apiBase}${url}`);
             if (!data.ok) {
-                throw (new Error(`tatus code:${data.status}`))
+                throw new Error('could not')
+            } else {
+                return data.json()
             }
-
-            return await data.json();
-
-        } catch (error) {
-            console.log(error);
+        } catch (e) {
+            console.log(e);
         }
+    }
+
+    async getPlanets() {
+        const { results } = await this.fetchData(`/planets`);
+        return results
+    }
+
+    async getPlanet(id) {
+        return await this.fetchData(`/planets/${id}`)
     }
 }

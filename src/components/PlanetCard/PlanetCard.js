@@ -1,22 +1,35 @@
-import React from 'react';
-import {Card, Col} from 'react-bootstrap'
+import React, {useEffect, useState} from 'react';
+import {Card} from 'react-bootstrap';
+import PlanetCardScreen from './PlanetCardScreen'
+import SwapiService from '../../Services/SwapiService';
 
-export default function PlanetCard({planets}) {
-    console.log(planets);
-    return (
-        <Card>
-            <Card.Body className="d-flex">
-                <Col sm={3}>
-                    <Card.Img variant="top" src="holder.js/100px180"/>
-                </Col>
-            <Col sm={9}>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-                </Card.Text>
-            </Col>
-            </Card.Body>
+export default function PlanetCard({planetId}) {
+    console.log(planetId,'dfgsj');
+    const data = new SwapiService();
+    const [planet, setPlanet] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const getPlanet = (id) => {
+        data.getPlanet(id).then(val => {
+            setPlanet(val);
+            console.log('id');
+            setLoading(false)
+        });
+    };
+    useEffect(() => {
+        console.log(planetId,'dfgsj');
+        getPlanet(planetId)
+    }, [])
+    let cardContent;
+    if (loading) {
+        cardContent = <h1>loading....</h1>;
+    } else {
+        cardContent = <Card>
+            <PlanetCardScreen planet={planet} planetId={planetId}/>
         </Card>
+    }
+    return (
+        <>
+            {cardContent}
+        </>
     )
 }
