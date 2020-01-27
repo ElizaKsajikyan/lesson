@@ -4,7 +4,6 @@ import Header from '../Header';
 import Tabs from '../Tabs';
 import './App.scss';
 import PlanetCard from '../PlanetCard';
-import SwapiService from '../../Services/SwapiService';
 
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
     const getRandomId = () => {
         const randomId = Math.floor(Math.random() * 23);
         setPlanetId (randomId) ;
-    }
+    };
 
 
     useEffect(() => {
@@ -24,10 +23,9 @@ function App() {
         <>
             <Header/>
             <Container className="mt-5">
-                {planetId}
                 <PlanetCard planetId={planetId}/>
             </Container>
-            {/*<Tabs/>*/}
+            <Tabs/>
         </>
     );
 }
