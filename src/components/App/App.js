@@ -14,9 +14,10 @@ function App() {
         setPlanetId (randomId) ;
     };
 
-
     useEffect(() => {
-        getRandomId()
+        setInterval(()=>{
+            getRandomId()
+        },4000)
     }, []);
 
     return (

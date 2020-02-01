@@ -23,7 +23,7 @@ export default function TabLists({getPlanetId}) {
         planet = planets.map(planet => {
             let splitUrl = planet.url.split('/'),
                 id = splitUrl[splitUrl.length - 2];
-            const active = stateId === id ? 'active checkedItem' : '';
+            const active = stateId === +id ? 'active checkedItem' : '';
             return <ListGroup.Item action variant={active} key={id} onClick={() => {
                 handelClick(id)
             }}>
